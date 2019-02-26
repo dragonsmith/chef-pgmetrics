@@ -76,7 +76,7 @@ platforms:
       image: opensuse/leap:42.3
       run_command: '/bin/systemd'
       provision_command:
-        - zypper install -y dbus-1
+        - zypper install -y dbus-1 tar gzip
         - systemctl enable sshd
   - name: opensuse-leap-15-docker
     lifecycle:
@@ -97,6 +97,7 @@ platforms:
       provision_command:
         # Hack to make chef_installer.sh detect platform correctly.
         - echo "Amazon Linux 2" > /etc/system-release
+        - yum install tar gzip
 
 suites:
   - name: default
