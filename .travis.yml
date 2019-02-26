@@ -40,6 +40,6 @@ jobs:
     - stage: deploy
       if: tag =~ ^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$
       script:
-        - openssl aes-256-cbc -K $encrypted_f15b1e22caf1_key -iv $encrypted_f15b1e22caf1_iv -in /.travis/dr_agon.pem.enc -out .travis/dr_agon.pem -d
+        - openssl aes-256-cbc -K $encrypted_f15b1e22caf1_key -iv $encrypted_f15b1e22caf1_iv -in .travis/dr_agon.pem.enc -out .travis/dr_agon.pem -d
         - bundle exec stove login --username dr_agon --key .travis/dr_agon.pem
         - bundle exec stove --no-git
