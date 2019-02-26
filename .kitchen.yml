@@ -1,20 +1,102 @@
 ---
 driver:
-  name: vagrant
+  name: docker
+  use_sudo: false
+  privileged: true
 
 provisioner:
   name: chef_zero
-  # You may wish to disable always updating cookbooks in CI or other testing environments.
-  # For example:
-  #   always_update_cookbooks: <%= !ENV['CI'] %>
-  always_update_cookbooks: true
 
 verifier:
   name: inspec
 
 platforms:
-  - name: ubuntu-16.04
-  - name: centos-7
+  - name: ubuntu-14.04-docker
+    driver_config:
+      image: ubuntu-upstart:14.04
+      disable_upstart: false
+      run_command: '/sbin/init'
+  - name: ubuntu-16.04-docker
+    driver_config:
+      image: ubuntu:16.04
+      run_command: '/sbin/init'
+      provision_command:
+        - apt-get install -y dbus
+        - systemctl set-default multi-user.target
+  - name: ubuntu-18.04-docker
+    driver_config:
+      image: ubuntu:18.04
+      run_command: '/sbin/init'
+      provision_command:
+        - apt-get install -y dbus
+        - systemctl set-default multi-user.target
+  - name: debian-8-docker
+    driver_config:
+      image: debian:8
+      disable_upstart: false
+      run_command: '/lib/systemd/systemd'
+      provision_command:
+        - apt-get install -y dbus
+        - systemctl set-default multi-user.target
+  - name: debian-9-docker
+    driver_config:
+      image: debian:9
+      disable_upstart: false
+      run_command: '/lib/systemd/systemd'
+      provision_command:
+        - apt-get install -y dbus
+        - systemctl set-default multi-user.target
+  - name: centos-6-docker
+    driver_config:
+      image: centos:6
+      run_command: '/sbin/init'
+  - name: centos-7-docker
+    driver_config:
+      image: centos:7
+      run_command: '/lib/systemd/systemd'
+      provision_command:
+        - yum install -y dbus
+        - systemctl set-default multi-user.target
+  - name: fedora-28-docker
+    driver_config:
+      image: fedora:28
+      run_command: '/lib/systemd/systemd'
+      provision_command:
+        - dnf install -y dbus
+        - systemctl set-default multi-user.target
+  - name: fedora-29-docker
+    driver_config:
+      image: fedora:29
+      run_command: '/lib/systemd/systemd'
+      provision_command:
+        - dnf install -y dbus
+        - systemctl set-default multi-user.target
+  - name: opensuse-leap-42-docker
+    driver_config:
+      image: opensuse/leap:42.3
+      run_command: '/bin/systemd'
+      provision_command:
+        - zypper install -y dbus-1
+        - systemctl enable sshd
+  - name: opensuse-leap-15-docker
+    lifecycle:
+      # pre_converge:
+      # - remote: sudo rpm -ihv https://packages.chef.io/files/stable/chef/14.10.9/sles/15/chef-14.10.9-1.sles12.x86_64.rpm
+    driver_config:
+      image: opensuse/leap:15.1
+      run_command: '/bin/systemd'
+      provision_command:
+        - rpm -ihv https://packages.chef.io/files/stable/chef/14.10.9/sles/15/chef-14.10.9-1.sles12.x86_64.rpm
+        - zypper install -y tar gzip
+        - systemctl enable sshd
+  - name: amazonlinux-2-docker
+    driver_config:
+      image: amazonlinux:2
+      run_command: '/sbin/init'
+      platform: rhel
+      provision_command:
+        # Hack to make chef_installer.sh detect platform correctly.
+        - echo "Amazon Linux 2" > /etc/system-release
 
 suites:
   - name: default
@@ -23,4 +105,3 @@ suites:
     verifier:
       inspec_tests:
         - test/integration/default
-    attributes:

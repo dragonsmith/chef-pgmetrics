@@ -1,18 +1,12 @@
 # # encoding: utf-8
 
-# Inspec test for recipe pgmetrics::default
+pgmetrics_bin = '/opt/pgmetrics_1.6.0_linux_amd64/pgmetrics'
 
-# The Inspec reference, with examples and extensive documentation, can be
-# found at http://inspec.io/docs/reference/resources/
-
-unless os.windows?
-  # This is an example test, replace with your own test.
-  describe user('root'), :skip do
-    it { should exist }
-  end
+describe file(pgmetrics_bin) do
+  it { should exist }
+  it { should be_executable }
 end
 
-# This is an example test, replace it with your own test.
-describe port(80), :skip do
-  it { should_not be_listening }
+describe file('/usr/local/bin/pgmetrics') do
+  its('link_path') { should eq pgmetrics_bin }
 end

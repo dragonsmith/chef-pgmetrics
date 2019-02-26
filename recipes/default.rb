@@ -15,3 +15,23 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+# Download binary
+remote_file 'pgmetrics' do
+  path "#{Chef::Config[:file_cache_path]}/pgmetrics.tar.gz"
+  owner 'root'
+  group 'root'
+  mode '0644'
+  source node['pgmetrics']['url']
+  checksum node['pgmetrics']['checksum']
+end
+
+bash 'untar pgmetrics archive' do
+  code "tar -xzf #{Chef::Config[:file_cache_path]}/pgmetrics.tar.gz -C /opt"
+  action :nothing
+  subscribes :run, 'remote_file[pgmetrics]', :immediately
+end
+
+link '/usr/local/bin/pgmetrics' do
+  to "/opt/pgmetrics_#{node['pgmetrics']['version']}_linux_amd64/pgmetrics"
+end

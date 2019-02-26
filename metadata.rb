@@ -2,19 +2,20 @@ name 'pgmetrics'
 maintainer 'Kirill Kuznetsov'
 maintainer_email 'agon.smith@gmail.com'
 license 'Apache-2.0'
-description 'Installs/Configures pgmetrics'
-long_description 'Installs/Configures pgmetrics'
+description 'Installs pgmetrics binary'
+long_description 'Installs pgmetrics binary'
 version '0.1.0'
 chef_version '>= 12.14' if respond_to?(:chef_version)
 
-# The `issues_url` points to the location where issues for this cookbook are
-# tracked.  A `View Issues` link will be displayed on this cookbook's page when
-# uploaded to a Supermarket.
-#
-# issues_url 'https://github.com/<insert_org_here>/pgmetrics/issues'
+supports 'amazon'
+supports 'centos'
+supports 'debian'
+supports 'fedora'
+supports 'opensuse'
+supports 'opensuseleap'
+supports 'redhat'
+supports 'suse'
+supports 'ubuntu'
 
-# The `source_url` points to the development repository for this cookbook.  A
-# `View Source` link will be displayed on this cookbook's page when uploaded to
-# a Supermarket.
-#
-# source_url 'https://github.com/<insert_org_here>/pgmetrics'
+issues_url 'https://github.com/dragonsmith/chef-pgmetrics/issues'
+source_url 'https://github.com/dragonsmith/chef-pgmetrics'

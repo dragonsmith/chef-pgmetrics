@@ -4,8 +4,6 @@ This file is used to list changes made in each version of the pgmetrics cookbook
 
 # 0.1.0
 
-Initial release.
+* (New) Initial release. `pgmetrics` version `1.6.0`
 
-- change 0
-- change 1
 
