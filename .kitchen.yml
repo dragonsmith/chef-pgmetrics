@@ -78,17 +78,6 @@ platforms:
       provision_command:
         - zypper install -y dbus-1 tar gzip
         - systemctl enable sshd
-  - name: opensuse-leap-15-docker
-    lifecycle:
-      # pre_converge:
-      # - remote: sudo rpm -ihv https://packages.chef.io/files/stable/chef/14.10.9/sles/15/chef-14.10.9-1.sles12.x86_64.rpm
-    driver_config:
-      image: opensuse/leap:15.1
-      run_command: '/bin/systemd'
-      provision_command:
-        - rpm -ihv https://packages.chef.io/files/stable/chef/14.10.9/sles/15/chef-14.10.9-1.sles12.x86_64.rpm
-        - zypper install -y tar gzip
-        - systemctl enable sshd
   - name: amazonlinux-2-docker
     driver_config:
       image: amazonlinux:2
@@ -97,7 +86,7 @@ platforms:
       provision_command:
         # Hack to make chef_installer.sh detect platform correctly.
         - echo "Amazon Linux 2" > /etc/system-release
-        - yum install tar gzip
+        - yum install -y tar
 
 suites:
   - name: default

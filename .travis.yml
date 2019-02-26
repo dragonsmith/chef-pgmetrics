@@ -27,7 +27,6 @@ env:
     - INSTANCE=default-fedora-28-docker
     - INSTANCE=default-fedora-29-docker
     - INSTANCE=default-opensuse-leap-42-docker
-    - INSTANCE=default-opensuse-leap-15-docker
     - INSTANCE=default-amazonlinux-2-docker
 
 jobs:
