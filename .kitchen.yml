@@ -6,6 +6,7 @@ driver:
 
 provisioner:
   name: chef_zero
+  chef_license: accept
 
 verifier:
   name: inspec
@@ -70,6 +71,13 @@ platforms:
       run_command: '/lib/systemd/systemd'
       provision_command:
         - dnf install -y dbus
+        - systemctl set-default multi-user.target
+  - name: fedora-30-docker
+    driver_config:
+      image: fedora:30
+      run_command: '/lib/systemd/systemd'
+      provision_command:
+        - dnf install -y dbus libxcrypt-compat
         - systemctl set-default multi-user.target
   - name: opensuse-leap-42-docker
     driver_config:

@@ -5,7 +5,7 @@ language: ruby
 cache: bundler
 sudo: false
 rvm:
-- 2.6.0
+- 2.6.3
 
 before_install:
   - gem update --system
@@ -26,6 +26,7 @@ env:
     - INSTANCE=default-centos-7-docker
     - INSTANCE=default-fedora-28-docker
     - INSTANCE=default-fedora-29-docker
+    - INSTANCE=default-fedora-30-docker
     - INSTANCE=default-opensuse-leap-42-docker
     - INSTANCE=default-amazonlinux-2-docker
 

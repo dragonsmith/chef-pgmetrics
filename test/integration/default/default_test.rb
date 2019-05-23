@@ -1,6 +1,6 @@
 # # encoding: utf-8
 
-pgmetrics_bin = '/opt/pgmetrics_1.6.0_linux_amd64/pgmetrics'
+pgmetrics_bin = '/opt/pgmetrics_1.6.3_linux_amd64/pgmetrics'
 
 describe file(pgmetrics_bin) do
   it { should exist }
